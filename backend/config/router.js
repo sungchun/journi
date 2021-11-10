@@ -1,7 +1,7 @@
 import express from "express"
 import { addComment, addPost, deleteComment, deletePost, getAllPosts, getOnePost, updatePost } from "../controllers/posts.js"
 import { registerUser, loginUser } from "../controllers/auth.js"
-import { followProfile, getUserProfile } from "../controllers/user.js"
+import { followProfile, getUserProfile, unfollowProfile } from "../controllers/user.js"
 import { secureRoute } from "./secureRoute.js"
 
 const router = express.Router()
@@ -32,5 +32,6 @@ router.route('/profile')
 
 router.route('/profile/:profileId/')
     .post(secureRoute, followProfile)
+    .put(secureRoute, unfollowProfile)
 
 export default router

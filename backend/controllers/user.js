@@ -18,6 +18,9 @@ export const followProfile = async (req, res) => {
         const { profileId } = req.params
         const me = req.currentUser
         const profileToFollow = await User.findById(profileId)
+        if (profileToFollow === me) {
+            throw new Error('that\'s you dummy')
+        }
         console.log(profileToFollow.followers)
         if (profileToFollow.followers.includes(me._id)) {
             throw new Error('You already follow this person')
@@ -29,6 +32,33 @@ export const followProfile = async (req, res) => {
         return res.status(200).json(me)
     } catch (err) {
         console.log(err)
-        return res.status(404).json({ message: 'all my guys are ballas' })
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
+
+export const unfollowProfile = async (req, res) => {
+    try {
+        const { profileId } = req.params
+        const me = req.currentUser
+        const profileToUnFollow = await User.findById(profileId)
+        console.log('profile to unfollow', profileToUnFollow)
+        console.log('their followers', profileToUnFollow.followers)
+        if (profileToUnFollow === me) {
+            throw new Error('that\'s you dummy')
+        }
+        if (!profileToUnFollow.followers.includes(me._id)) {
+            throw new Error('you don\'t follow them')
+        }
+        console.log('das me', me)
+        const myIndex = profileToUnFollow.followers.indexOf(me._id)
+        const theirIndex = me.following.indexOf(profileToUnFollow._id)
+        profileToUnFollow.followers.splice(myIndex, 1)
+        me.following.splice(theirIndex, 1)
+        me.save({ validateModifiedOnly: true })
+        profileToUnFollow.save({ validateModifiedOnly: true })
+        return res.status(200).json(me)
+    } catch (err) {
+        console.log(err)
+        return res.status(404).json({ message: 'something went wrong' })
     }
 }
