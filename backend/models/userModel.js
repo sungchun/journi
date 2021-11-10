@@ -5,7 +5,9 @@ import bcrypt from 'bcrypt'
 const userSchema = new mongoose.Schema({
     username: { type: String, unique: true, required: true, maxlength: 25, minlength: 3 },
     email: { type: String, unique: true, required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    followers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+    following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
 })
 
 userSchema.virtual('postSet', {
