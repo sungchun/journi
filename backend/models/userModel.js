@@ -8,17 +8,11 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     followers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
     following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-    // trips: [{ type: mongoose.Schema.Objectid, ref: 'Trip' }]
+    trips: [{ type: mongoose.Schema.ObjectId, ref: 'Trip' }]
 })
 
 userSchema.virtual('postSet', {
     ref: 'Post',
-    localField: '_id',
-    foreignField: 'owner'
-})
-
-userSchema.virtual('tripSet', {
-    ref: 'Trip',
     localField: '_id',
     foreignField: 'owner'
 })
