@@ -3,7 +3,9 @@ import { dbURI } from '../config/environment.js'
 import Post from '../models/postModel.js'
 import User from '../models/userModel.js'
 import postData from './data/post.js'
+import Trip from '../models/tripModel.js'
 import userData from './data/user.js'
+import tripData from './data/trip.js'
 
 async function seedDatabase() {
     try {
@@ -15,6 +17,15 @@ async function seedDatabase() {
 
         const users = await User.create(userData)
         console.log(`${users.length} users added`)
+
+
+        const tripsWithOwners = tripData.map(trip => {
+            trip.owner = users[0]._id
+            return trip
+        })
+
+        const trips = await Trip.create(tripsWithOwners)
+        console.log(`${trips.length} trips added`)
 
         const postWithOwners = postData.map((post) => {
             post.owner = users[0]._id

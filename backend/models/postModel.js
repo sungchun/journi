@@ -15,7 +15,8 @@ const postSchema = new mongoose.Schema({
     rating: { type: Number, required: true, min: 1, max: 5 },
     owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
     comments: [commentSchema],
-    location: { type: String, required: true }
+    location: { type: String, required: true },
+    trip: { type: String, required: false }
 }, {
     timestamps: true
 })

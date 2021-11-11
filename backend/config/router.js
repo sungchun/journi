@@ -1,5 +1,5 @@
 import express from "express"
-import { addComment, addPost, deleteComment, deletePost, getAllPosts, getOnePost, updatePost } from "../controllers/posts.js"
+import { addComment, addPost, addTrip, deleteComment, deletePost, deleteTrip, getAllPosts, getAllTrips, getOnePost, getOneTrip, updatePost, updateTrip } from "../controllers/posts.js"
 import { registerUser, loginUser } from "../controllers/auth.js"
 import { followProfile, getUserProfile, unfollowProfile } from "../controllers/user.js"
 import { secureRoute } from "./secureRoute.js"
@@ -33,5 +33,14 @@ router.route('/profile')
 router.route('/profile/:profileId/')
     .post(secureRoute, followProfile)
     .put(secureRoute, unfollowProfile)
+
+router.route('/trips')
+    .post(secureRoute, addTrip)
+    .get(getAllTrips)
+
+router.route('/trips/:id')
+    .get(getOneTrip)
+    .put(secureRoute, updateTrip)
+    .delete(secureRoute, deleteTrip)
 
 export default router

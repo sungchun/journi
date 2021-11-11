@@ -1,5 +1,6 @@
 // this is the file for controller functions related to posts
 import Post from '../models/postModel.js'
+import Trip from '../models/tripModel.js'
 
 export const getAllPosts = async (_req, res) => {
     const posts = await Post.find()
@@ -20,6 +21,7 @@ export const addPost = async (req, res) => {
     try {
         const newPost = { ...req.body, owner: req.currentUser._id }
         const addedPost = await Post.create(newPost)
+
         return res.status(201).json(addedPost)
     } catch (err) {
         return res.status(422).json(err)
@@ -51,6 +53,67 @@ export const deletePost = async (req, res) => {
         return res.sendStatus(204)
     } catch (err) {
         return res.status(404).json({ message: 'post not found' })
+    }
+}
+
+export const addTrip = async (req, res) => {
+    try {
+        const newTrip = await Trip.create({ ...req.body, user: req.currentUser })
+        req.currentUser.trips.push(newTrip)
+        await req.currentUser.save({ validateModifiedOnly: true })
+        return res.status(200).json(newTrip)
+    } catch (err) {
+        console.log(err)
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
+
+export const getAllTrips = async (_req, res) => {
+    try {
+        const trips = await Trip.find()
+        return res.status(200).json(trips)
+    } catch (err) {
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
+
+export const updateTrip = async (req, res) => {
+    try {
+        const { id } = req.params
+        const tripToUpdate = await Trip.findOneAndUpdate(id, req.body)
+        if (!tripToUpdate) {
+            throw new Error('trip not found')
+        }
+        return res.status(200).json(await Trip.findById(id))
+    } catch (err) {
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
+
+export const deleteTrip = async (req, res) => {
+    try {
+        const { id } = req.params
+        const tripToDelete = await Trip.findById(id)
+        console.log("trip to delete", tripToDelete)
+        console.log("my id", req.currentUser._id)
+        if (!tripToDelete.owner.equals(req.currentUser._id)) {
+            throw new Error('unauthorized')
+        }
+        await Trip.findByIdAndDelete(id)
+        return res.sendStatus(204)
+    } catch (err) {
+        console.log(err)
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
+
+export const getOneTrip = async (req, res) => {
+    try {
+        const { id } = req.params
+        const tripToGet = await Trip.findById(id)
+        return res.status(200).json(tripToGet)
+    } catch (err) {
+        return res.status(404).json({ message: 'something went wrong' })
     }
 }
 
