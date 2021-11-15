@@ -1,29 +1,81 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import { setToken } from "../helpers/auth";
+import FormInput from "../components/FormInput";
+import { login } from '../helpers/api'
 
-const Login = () => {
+
+const Login = ({ setIsLoggedIn }) => {
+
+  const [data, setData] = useState({
+    username: '',
+    password: '',
+  })
+  const [errorInfo, setErrorInfo] = useState({})
+  const [isError, setIsError] = useState(false)
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    login(data)
+      .then(console.log(data), handleSuccessfulLogin)
+      .catch(handleError)
+
+
+  }
+
+  const handleSuccessfulLogin = ({ token }) => {
+    
+    setToken(token)
+    console.log({token})
+    setIsLoggedIn(true)
+    setIsError(false)
+
+    navigate.push('/home')
+  }
+
+  const handleError = (error) => {
+    if (error.response) {
+      setErrorInfo(error.response.data)
+      setIsError(true)
+    }
+  }
+
+  const handleFormChange = (event) => {
+    const { name, value } = event.target
+    setData({
+      ...data,
+      [name]: value,
+    })
+  }
+
+  const formInputProps = { data, errorInfo, handleFormChange }
+
   return (
     <div>
-      <h2>Journi</h2>
-
-      <form className="login-form">
-        <input
-          type="text"
-          name="username"
-          id="username-field"
-          className="login-form-field"
-          placeholder="Username"
+      <section>
+      <form onSubmit={handleSubmit}>
+        <h1>Sign in to Journi</h1>
+        <FormInput
+          placeholder='Username'
+          type='text'
+          name='username'
+          {...formInputProps}
         />
-        <input
-          type="password"
-          name="password"
-          id="password-field"
-          class="login-form-field"
-          placeholder="Password"
+        <FormInput
+          placeholder='password'
+          type='password'
+          name='password'
+          {...formInputProps}
         />
-        <input type="submit" value="Login" id="login-form-submit" />
-      </form>
-      <div className="container">
+        <div>
+          <input type='submit' value='Login' />
+        </div>
+        <div className="container">
         <Link
           to="/register"
           className="register-link"
@@ -32,6 +84,15 @@ const Login = () => {
           Don't have account? Click here to register
         </Link>
       </div>
+        {isError ? (
+          <div className='error'>
+            <p>Error. Please try again.</p>
+          </div>
+        ) : (
+          <></>
+        )}
+      </form>
+    </section>
     </div>
   );
 };

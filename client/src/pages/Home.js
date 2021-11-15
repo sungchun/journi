@@ -3,14 +3,17 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 const Home = () => {
-  // const [home, setHome] = useState([])
-
+  
   // useEffect(() => {
-  //     async function home() {
-  //         const response = await axios.get ('https/api/home')
-  //         setHome(response.data)
+  //     const getData = async () => {
+  //       try {
+  //         const { data } = await axios.get('/api/posts')
+  //         console.log(data)
+  //       } catch (err) {
+  //         console.log(err)
+  //       }
   //     }
-  //     home()
+  //     getData()
   // }, [])
 
   return (

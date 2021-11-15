@@ -13,6 +13,5 @@ export default [
         images: ['https://images.theconversation.com/files/73839/original/image-20150304-15267-b67ii3.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop'],
         rating: 5,
         location: 'Kew GardensAddress here'
-
     }
 ]
