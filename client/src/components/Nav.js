@@ -22,8 +22,9 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
         const locations = response.data.map((post) =>{
           return post.location
         })
+        const counter = {}
         locations.forEach((location) => {
-          
+
         })
       })
       .catch((err) => {

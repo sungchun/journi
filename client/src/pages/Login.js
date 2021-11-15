@@ -34,7 +34,6 @@ const Login = ({ setIsLoggedIn }) => {
 
   const handleError = (error) => {
     if (error.response) {
-      setErrorInfo(error.response.data)
       setIsError(true)
     }
   }

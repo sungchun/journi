@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     if (getToken()) {
       setIsLoggedIn(true)
-    } else{
+    } else {
       setIsLoggedIn(false)
     }
   }, [])
@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </main>
