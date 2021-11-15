@@ -1,5 +1,6 @@
-// import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 // import axios from 'axios'
+import Map from '../components/Map.js'
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Map from '../components/Map.js'
 
@@ -17,11 +18,29 @@ const Home = () => {
   //     getData()
   // }, [])
 
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const logCheck = () => {
+
+      const token = getToken()
+      console.log(token)
+      if(token === null){
+        navigate('/login')
+      }
+    }
+    logCheck()
+    
+  }, [])
+
+  
+
   return (
     <Container>
       <br />
       <Row>
         <Col border="success" lg={8}>
+         <Map />
           <Map />
           <Card.Img
             variant="top"
@@ -30,13 +49,6 @@ const Home = () => {
         </Col>
         <Col lg={3}>
           <Card.Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            posuere erat a ante. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Integer posuere erat a ante.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            posuere erat a ante. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Integer posuere erat a ante.
           </Card.Text>
         </Col>
       </Row>
