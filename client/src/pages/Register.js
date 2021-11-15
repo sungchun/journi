@@ -1,41 +1,94 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { register } from '../helpers/api'
+import FormInput from '../components/FormInput'
+
 
 const Register = () => {
+
+  const [data, setData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+  })
+  
+
+  const [isError, setIsError] = useState(false)
+
+  const navigate = useNavigate()
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    console.log('hello')
+    register(data)
+      .then(handleSuccessfulRegister)
+      .catch(handleError)
+  }
+
+  const handleSuccessfulRegister = () => {
+    setIsError(false)
+    navigate('/login')
+  }
+
+  const handleError = (error) => {
+    if (error.response) {
+      setIsError(true)
+    }
+  }
+
+  const handleFormChange = (event) => {
+    const { name, value } = event.target
+    setData({
+      ...data,
+      [name]: value,
+    })
+  }
+
+  const formInputProps = { data, handleFormChange }
+
   return (
     <div>
       <h2>Journi</h2>
-      <form className="register-form">
-        <input
-          type="text"
-          name="username"
-          id="username-field"
-          className="register-form-field"
-          placeholder="Enter Username"
+      <section>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          placeholder='username'
+          type='text'
+          name='username'
+          {...formInputProps}
         />
-        <input
-          type="email"
-          name="email"
-          id="email-field"
-          className="register-form-field"
-          placeholder="Enter Email"
+        <FormInput
+          placeholder='email'
+          type='email'
+          name='email'
+          {...formInputProps}
         />
-        <input
-          type="password"
-          name="password"
-          id="password-field"
-          className="register-form-field"
-          placeholder="Enter your password"
+        <FormInput
+          placeholder='password'
+          type='password'
+          name='password'
+          {...formInputProps}
         />
-        <input
-          type="password"
-          name="password"
-          id="password-field-confirmation"
-          className="register-form-field"
-          placeholder="Confirm Password"
+        <FormInput
+          placeholder='Confirm Password'
+          type='password'
+          name='passwordConfirmation'
+          {...formInputProps}
         />
-        <input type="submit" value="register" id="register-form-submit" />
+        <div>
+          <input type='submit' value='Register' />
+        </div>
+        {isError ? (
+          <div className='error'>
+            <p>Error. Please try again.</p>
+          </div>
+        ) : (
+          <></>
+        )}
       </form>
+    </section>
       <div className="container">
         <Link
           to="/login"

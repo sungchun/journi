@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
 import { setToken } from "../helpers/auth";
 import FormInput from "../components/FormInput";
 import { login } from '../helpers/api'
@@ -22,20 +21,15 @@ const Login = ({ setIsLoggedIn }) => {
     event.preventDefault()
 
     login(data)
-      .then(console.log(data), handleSuccessfulLogin)
+      .then(handleSuccessfulLogin)
       .catch(handleError)
-
-
   }
 
-  const handleSuccessfulLogin = ({ token }) => {
-    
-    setToken(token)
-    console.log({token})
+  const handleSuccessfulLogin = (data) => {
+    setToken(data)
     setIsLoggedIn(true)
     setIsError(false)
-
-    navigate.push('/home')
+    navigate('/')
   }
 
   const handleError = (error) => {
