@@ -18,10 +18,10 @@ const ProfileCard = () => {
           </Card.Text>
           <ListGroup variant="flush">
             <Card.Title>Trips</Card.Title>
-            <ListGroup.Item>Cras justo odio</ListGroup.Item>
-            <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-            <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-            <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+            <ListGroup.Item>London Eye</ListGroup.Item>
+            <ListGroup.Item>Buckingham Palace</ListGroup.Item>
+            <ListGroup.Item>Camden Town</ListGroup.Item>
+            <ListGroup.Item>Oxford</ListGroup.Item>
           </ListGroup>
         </Card.Body>
       </Card>
