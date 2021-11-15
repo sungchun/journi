@@ -17,12 +17,11 @@ async function startServer() {
             next()
         })
 
-        app.use(router)
+        app.use('/api', router)
 
         app.use((_req, res) => {
             res.status(404).json({ message: 'route not found D:' })
         })
-
 
         app.listen(port, () => console.log('servers are up'))
     } catch (err) {
