@@ -10,7 +10,9 @@ export default [
         username: 'Reisli',
         email: 'reisli@email.com',
         password: 'admin',
-        passwordConfirmation: 'admin'
+        passwordConfirmation: 'admin',
+        profileImage: 'https://pbs.twimg.com/profile_images/1080523747923296257/VixnCV0t_400x400.jpg',
+        profileBio: 'I am an extremely cool and funny person!'
     },
     {
         username: 'Monia',

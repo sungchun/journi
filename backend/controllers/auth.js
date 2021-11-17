@@ -23,7 +23,7 @@ export const loginUser = async (req, res) => {
             throw new Error()
         } else {
             const token = jwt.sign({ sub: loggingUser._id }, secret, { expiresIn: '7days' })
-            console.log(`🫀 ${req.body.username} has logged in and has received a token!`)
+            console.log(`🫀  ${req.body.username} has logged in and has received a token!`)
             return res.status(200).json(token)
 
         }

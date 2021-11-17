@@ -1,19 +1,48 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 import ProfileCard from "../components/ProfileCard";
+import { useNavigate } from 'react-router';
+import { getToken } from '../helpers/auth.js';
+import { useEffect, useState } from "react";
+import { fetchProfileInfo } from "../helpers/api";
+import { Link } from "react-router-dom";
+import Map from '../components/Map.js'
 
-const Profile = () => {
+
+
+const Profile = ({map, mapContainer, setLng, setLat, setZoom, lat, lng, zoom}) => {
+  
+
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const logCheck = () => {
+      const token = getToken()
+      if(token === null){
+        navigate('/login')
+      }
+    }
+    
+    logCheck()
+
+  }, [])
+
+
+
   return (
     <Container>
       <br />
       <Row>
-        <Col lg={3}>
+        <Col lg={4}>
           <ProfileCard />
         </Col>
-        <Col lg={9}>
-          <Card.Img
-            variant="top"
-            src="https://i.guim.co.uk/img/media/5623c9dc9aaa8e193450e818ee948dabdcb842e7/0_127_2362_1417/master/2362.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=bf0b8ed6d3ce1b65cf7da3587c2344c0"
-          />
+        <Col lg={8}>
+          <Map map={map} mapContainer={mapContainer} lng={lng} setLng={setLng} lat={lat} setLat={setLat}  zoom={zoom}setZoom={setZoom}/>
+        </Col>
+        <Col lg={4}>
+          <Link to='/addtrip'>
+            <Button type='button' variant='outline-info'>Add Trip</Button>
+          </Link>
         </Col>
       </Row>
     </Container>
