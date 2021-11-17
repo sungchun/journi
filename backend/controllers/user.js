@@ -13,6 +13,19 @@ export const getUserProfile = async (req, res) => {
     }
 }
 
+export const updateUserProfile = async (req, res) => {
+    try {
+        const userToUpdate = await User.findById(req.currentUser._id)
+        if (!userToUpdate.equals(req.currentUser.id)) {
+            throw new Error('unauthorized')
+        }
+        await User.findByIdAndUpdate(req.currentUser._id, req.body)
+        return res.status(202).json(await User.findById(req.currentUser._id))
+    } catch (err) {
+        res.status(404).json({ message: ' user not found' })
+    }
+}
+
 export const followProfile = async (req, res) => {
     try {
         const { profileId } = req.params

@@ -1,32 +1,91 @@
 import React from "react";
 import { Card, Container, Image, ListGroup } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import TripCard from "./TripCard";
+import { fetchProfileInfoTrips, updateProfileInformation, fetchProfileInfo, fetchProfileInfoBio} from "../helpers/api";
+
+
 
 const ProfileCard = () => {
+
+  const [userInfo, setUserInfo] = useState({})
+  const [userTrips, setUserTrips] = useState([])
+  const [editBio, setEditBio] = useState(false)
+  const [editImage, setEditImage] = useState(false)
+  const [bio, setBio] = useState()
+  const [image, setImage] = useState()
+   
+  useEffect(() => {
+    const fetching = () => {
+      fetchProfileInfoTrips().then(setUserTrips)
+      fetchProfileInfo().then(setUserInfo)
+      fetchProfileInfoBio().then(setBio)
+    }
+    fetching()
+
+  
+  }, [])
+  
+
+ 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const newBio = bio
+      updateProfileInformation(newBio)
+
+    } catch (err) {
+      console.log(err)
+    }
+
+    setEditBio(false)
+     
+
+  }
+
+  const BioEdit = () => {
+    setEditBio(true)
+  }
+
+  const handleChange = (event) => {
+    setBio(event.target.value)
+  }
+
   return (
     <Container>
       <Card style={{ width: "14rem" }} className="text-center">
-        <Image
+      <Image
           variant="top"
-          src="https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg?w=690&h=930&7E4B4CAD-CAE1-4726-93D6A160C2B068B2"
+          src={userInfo.profileImage}
           roundedCircle
-        />
-        <Card.Header>Mr Cat</Card.Header>
+          />
+      <Card.Header>{userInfo.username}</Card.Header>
         <Card.Body>
-          <Card.Text>
-            A cat’s meow is used to communicate with humans, not other cats.
-            Cats have more bones in their bodies than people
-          </Card.Text>
+          
+          {/* <Card.Text>Followers: {userInfo.followers.length}</Card.Text>
+          <Card.Text>Following: {userInfo.following.length}</Card.Text> */}
+
+          {!editBio ? (<>
+            <Card.Text>{bio}</Card.Text>
+            <button onClick={BioEdit}>Edit Bio</button>
+            </>
+          ):( 
+            <form onSubmit={handleSubmit}>
+              <input type='text' placeholder={userInfo.profileBio} onChange={handleChange} />
+              <input type='submit' value='confirm changes' />
+            </form>
+            )}
           <ListGroup variant="flush">
             <Card.Title>Trips</Card.Title>
-            <ListGroup.Item>London Eye</ListGroup.Item>
-            <ListGroup.Item>Buckingham Palace</ListGroup.Item>
-            <ListGroup.Item>Camden Town</ListGroup.Item>
-            <ListGroup.Item>Oxford</ListGroup.Item>
+            {userTrips.map((props) => {
+              <TripCard {...props} />
+            })}
           </ListGroup>
         </Card.Body>
       </Card>
     </Container>
   );
+
 };
 
 export default ProfileCard;
