@@ -26,6 +26,25 @@ export const updateUserProfile = async (req, res) => {
     }
 }
 
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const userToGet = await User.find().populate('postSet')
+        return res.status(200).json(userToGet)
+    } catch (err) {
+        return res.status(404).json({ message: 'users not found' })
+    }
+}
+export const getOneUser = async (req, res) => {
+    try {
+        const { profileId } = req.params
+        const userToGet = await User.findById(profileId).populate('postSet')
+        return res.status(200).json(userToGet)
+    } catch (err) {
+        return res.status(404).json({ message: 'user not found' })
+    }
+}
+
 export const followProfile = async (req, res) => {
     try {
         const { profileId } = req.params

@@ -1,0 +1,4 @@
+.bg-custom-nav {
+    background-color: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,253,116,1) 100%);
+}

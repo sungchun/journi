@@ -1,43 +1,38 @@
-import axios from "axios";
-import AnimeList from "./AnimeList";
-
-const baseUrl = `https://api.jikan.moe/v3/search/anime?q=`;
-
-export const Anime = () => {
-  const [animes, setAnime] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    async function getAnimeFromApi() {
-      const response = await axios.get(`${baseUrl}${search}`);
-      setAnime(response.data.results);
+useEffect(() => {
+  if(!allPosts) return
+  let postFeatures = []
+  allPosts.forEach((post) => {
+    let theCenter = [];
+    async function makeFeature() {
+      axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${post.location}.json?access_token=pk.eyJ1Ijoic3VuZ2NodW4iLCJhIjoiY2t2djFnNjRuMDA0YTJvb2V3NWN3MG8xeCJ9.9wh2aRtP8nPesxW4bwjEIQ`
+        )
+        .then((response) => {
+          const { center } = response.data.features[0];
+          theCenter = center;
+        })
+      .catch((err) => {
+        console.log(err);
+      })
+      const marker = {
+        'type': "Feature",
+        'geometry': {
+          'type': "Point",
+          'coordinates': theCenter,
+        },
+        'properties': {
+          'title': post.location,
+          'id': post._id
+        }
+      }
+      console.log('marker', marker)
     }
-    getAnimeFromApi();
-  };
-  const handleChange = (event) => {
-    setSearch(event.target.value);
-  };
+      makeFeature()
+    });
+  postFeatures.push(marker)
+  const {data} = geoJSON
+  data.features = postFeatures
+  setGeoJSON({...geoJSON, data})
+  }, [allPosts]);
 
-  return (
-    <div>
-      <h1>Anime Finder!</h1>
-      <form id="anime-search" method="GET" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          name="anime"
-          id="anime"
-          value={search}
-          onChange={handleChange}
-        />
-        <input type="submit" value="GO" />
-      </form>
-      <div className="container">
-        {animes.map((searches) => (
-          <AnimeList key={searches.mal_id} {...searches} />
-        ))}
-      </div>
-    </div>
-  );
-};

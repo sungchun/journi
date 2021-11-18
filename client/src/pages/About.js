@@ -8,6 +8,8 @@ function About() {
                 <Card.Body>
                     <Card.Title as='h3' className='text-center my-3'>JOURNI</Card.Title>
                     <Card.Text as='h5' className='text-center my-3'>This is our first group project with React JS and Mongoose</Card.Text>
+                    <Card.Text as='h5' className='text-center my-3'>Our aim wa to create a functioning social media page which has a strong focus on pinpointing and rating locations! We decided to strongly incorporate the use of a map to create a more technically challenging design!</Card.Text>
+                    <Card.Text as='h5' className='text-center my-3'>Preston Ng, Monia Favaro, Reisli Hysa</Card.Text>
                 </Card.Body>
             </Card>
         </Container>

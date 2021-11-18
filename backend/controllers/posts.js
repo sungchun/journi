@@ -20,6 +20,8 @@ export const getOnePost = async (req, res) => {
 export const addPost = async (req, res) => {
     try {
         const newPost = { ...req.body, owner: req.currentUser._id }
+        console.log('req.body',req.body)
+        console.log('newPost', newPost)
         const addedPost = await Post.create(newPost)
 
         return res.status(201).json(addedPost)
