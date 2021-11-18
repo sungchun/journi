@@ -13,10 +13,10 @@ const postSchema = new mongoose.Schema({
     description: { type: String, required: true, maxlength: 500 },
     images: [{ type: String }],
     rating: { type: Number, required: true, min: 1, max: 5 },
+    location: { type: String, required: true },
     owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
     comments: [commentSchema],
-    location: { type: String, required: true },
-    trip: { type: String, required: false }
+    // trip: { type: String, required: false }
 }, {
     timestamps: true
 })

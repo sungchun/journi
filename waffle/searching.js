@@ -41,3 +41,13 @@ export const Anime = () => {
     </div>
   );
 };
+
+
+cloudinary.config({ 
+  cloud_name: 'reisli82', 
+  api_key: '779683244646843', 
+  api_secret: 'HvTi1_evI4qCVJeSKd66TmE2s94' 
+});
+
+https://api.cloudinary.com/v1_1/reisli82/image/upload
+unmniqhv

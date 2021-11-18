@@ -1,14 +1,16 @@
-import React from 'react'
-import { ListGroup } from "react-bootstrap";
+import React from "react";
 
 
-const TripCard = ({trips}) => {
-    return (
-        <>
-        {/* <ListGroupItem>{trips}</ListGroupItem> */}
-        <h3>{trips}</h3>
-        </>
-    )
-}
+const TripCard = ({title, rating, location}) => {
 
-export default TripCard
+  return (
+    <>
+    
+      <h3>{title}</h3>
+      <h5>Rating: {rating} stars</h5>
+      <p>{location}</p>
+    </>
+  );
+};
+
+export default TripCard;
