@@ -1,18 +1,19 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import '../styles/Nav.css'
 
 const Footer = () => {
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
-      bg="success"
+      bg="custom-nav"
       variant="dark"
     >
       <Container className="justify-content-center">
         <Nav>
-          <Navbar.Text>
+          <Navbar.Text className='text-muted'>
             Monia Favaro{" "}
             <a target="_blank" href="https://github.com/moniafavaro">
               <GitHubIcon />
@@ -23,7 +24,7 @@ const Footer = () => {
           </Navbar.Text>
         </Nav>
         <Nav className='mx-5'>
-          <Navbar.Text>
+          <Navbar.Text className='text-muted'>
             Preston Ng{" "}
             <a target="_blank" href="https://github.com/sungchun">
               <GitHubIcon />
@@ -37,7 +38,7 @@ const Footer = () => {
           </Navbar.Text>
         </Nav>
         <Nav>
-          <Navbar.Text>
+          <Navbar.Text className='text-muted'>
             Reisli Hysa{" "}
             <a target="_blank" href="https://github.com/ReiHysa">
               <GitHubIcon />

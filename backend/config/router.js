@@ -1,7 +1,7 @@
 import express from "express"
 import { addComment, addPost, addTrip, deleteComment, deletePost, deleteTrip, getAllPosts, getAllTrips, getOnePost, getOneTrip, updatePost, updateTrip } from "../controllers/posts.js"
 import { registerUser, loginUser } from "../controllers/auth.js"
-import { followProfile, getUserProfile, unfollowProfile, updateUserProfile } from "../controllers/user.js"
+import { followProfile, getUserProfile, unfollowProfile, updateUserProfile, getOneUser } from "../controllers/user.js"
 import { secureRoute } from "./secureRoute.js"
 
 const router = express.Router()
@@ -32,6 +32,7 @@ router.route('/profile')
     .put(secureRoute, updateUserProfile)
 
 router.route('/profile/:profileId/')
+    .get(getOneUser)
     .post(secureRoute, followProfile)
     .put(secureRoute, unfollowProfile)
 
