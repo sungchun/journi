@@ -13,6 +13,7 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import './styles/Map.css'
 import './styles/App.css'
 import OtherProfile from "./pages/OtherProfile";
+import UpdatePost from "./pages/UpdatePost";
 // import RoomIcon from '@mui/icons-material/Room'; /* <RoomIcon /> */
     
   function App() {
@@ -20,11 +21,12 @@ import OtherProfile from "./pages/OtherProfile";
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(-0.128)
-  const [lat, setLat] = useState(51.50)
-  const [zoom, setZoom] = useState(9)
+  const [lng, setLng] = useState(0)
+  const [lat, setLat] = useState(25)
+  const [zoom, setZoom] = useState(1)
   const [flyLocation, setFlyLocation] = useState([lng, lat])
-  const [flyZoom, setFlyZoom] = useState(9)      
+  const [flyZoom, setFlyZoom] = useState(1)
+   const [profileMarkers, setProfileMarkers] = useState([])
     
   useEffect(() => {
     if (getToken()) {
@@ -37,7 +39,7 @@ import OtherProfile from "./pages/OtherProfile";
   return (
     <Router>
       <header>
-        <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} map={map} setFlyLocation={setFlyLocation} setZoom={setZoom} setFlyZoom={setFlyZoom}/>
+        <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} map={map} setFlyLocation={setFlyLocation} setZoom={setZoom} setFlyZoom={setFlyZoom} />
       </header>
       <main>
         <Routes>
@@ -47,7 +49,7 @@ import OtherProfile from "./pages/OtherProfile";
           <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} map={map} mapContainer={mapContainer} lng={lng} setLng={setLng} lat={lat} setLat={setLat} zoom={zoom} setZoom={setZoom} flyLocation={flyLocation} flyZoom={flyZoom} />} />
           <Route path='/addpost' element={<AddPost />} />
           <Route path='/about' element={<About />} />
-          <Route path="/" element={<Home map={map} mapContainer={mapContainer} lng={lng} setLng={setLng} lat={lat} setLat={setLat} zoom={zoom} setZoom={setZoom} flyLocation={flyLocation} flyZoom={flyZoom}/>} />
+          <Route path="/" element={<Home map={map} mapContainer={mapContainer} lng={lng} setLng={setLng} lat={lat} setLat={setLat} zoom={zoom} setZoom={setZoom} flyLocation={flyLocation} flyZoom={flyZoom} setFlyLocation={setFlyLocation} setFlyZoom={setFlyZoom} />} />
         </Routes>
       </main>
       <footer>

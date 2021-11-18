@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Container, Form, Row, Button, Col } from "react-bootstrap";
 import { useNavigate } from "react-router";
@@ -7,25 +8,46 @@ const AddPost = () => {
   const [formdata, setFormdata] = useState({
     title: "",
     description: "",
-    images: [],
+    images: '',
     rating: 0,
     location: "",
   });
 
   const navigate = useNavigate()
 
-  const handleChange = event => {
+  const handleChange = (event) => {
       const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
     setFormdata({ ...formdata, [event.target.name]: value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault()
+    console.log('test', formdata)
     postTrip(formdata)
-    console.log(formdata)
-    alert('You have submitted your form!!')
     navigate('/profile')
   };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
+    const base64 = await convertToBase64(file);
+
+    console.log('files =>', file)
+    console.log('base64 =>', base64)
+    setFormdata({ ...formdata, [event.target.name]: base64 });
+  }
 
   return (
     <Container className="mt-3">
@@ -34,7 +56,7 @@ const AddPost = () => {
           <Form.Group as={Row} className="mb-3 justify-content-center">
             <Col xs="auto">
               <Form.Label column sm="2">
-                Where
+                Title
               </Form.Label>
               <Form.Control
                 as="input"
@@ -68,7 +90,7 @@ const AddPost = () => {
           >
             <Col xs="auto">
               <Form.Label>Images</Form.Label>
-              <Form.Control type="file" name="images" multiple />
+              <Form.Control as="input" type="file" name="images" onChange={handleUpload} />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 justify-content-center">

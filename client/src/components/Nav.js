@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import '../styles/Nav.css'
 
-const NavBar = ({ isLoggedIn, setIsLoggedIn, setFlyLocation, setFlyZoom}) => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn, setFlyLocation, setFlyZoom, homeMarkers, setHomeMarkers }) => {
   const navigate = useNavigate();
 
   const loggingOut = () => {
@@ -21,7 +21,7 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn, setFlyLocation, setFlyZoom}) => {
         <Navbar.Brand>LOGO</Navbar.Brand>
         <Navbar >
           <Form>
-            <SearchBar placeholder="Search..." setFlyLocation={setFlyLocation} setFlyZoom={setFlyZoom} />
+            <SearchBar placeholder="Search..." setFlyLocation={setFlyLocation} setFlyZoom={setFlyZoom} homeMarkers={homeMarkers} setHomeMarkers={setHomeMarkers}/>
           </Form>
         </Navbar>
         <Navbar>

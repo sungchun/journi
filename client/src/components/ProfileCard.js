@@ -1,11 +1,13 @@
 import React from "react";
-import { Card, Container, Image, ListGroup } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import TripCard from "./TripCard";
-import axios from "axios";
-import '../styles/Profile.css'
 import {
-  fetchProfileInfoTrips,
+  Card,
+  Container,
+  Image,
+} from "react-bootstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/Profile.css";
+import {
   updateProfileInformation,
   fetchProfileInfo,
   fetchProfileInfoBio,
@@ -18,19 +20,13 @@ const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
 
 const ProfileCard = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [userPosts, setUserPosts] = useState([]);
   const [editBio, setEditBio] = useState(false);
   const [editImage, setEditImage] = useState(false);
   const [bio, setBio] = useState();
   const [image, setImage] = useState();
 
-  const [formdata, setFormData] = useState({
-    profileImage: "",
-  });
-
   useEffect(() => {
     const fetching = () => {
-      fetchProfileInfoTrips().then(setUserPosts);
       fetchProfileInfo().then(setUserInfo);
       fetchProfileInfoImage().then(setImage);
       fetchProfileInfoBio().then(setBio);
@@ -52,6 +48,7 @@ const ProfileCard = () => {
   const BioEdit = () => {
     setEditBio(true);
   };
+
   const imageState = () => {
     setEditImage(true);
   };
@@ -77,54 +74,62 @@ const ProfileCard = () => {
   };
 
   return (
-    <Container>
-      {userInfo ? (
-        <>
-          <Card className="text-center border-0">
-            {!editImage ? (
-              <>
-                <Image className='card-image' variant="top" src={image} roundedCircle />
-                <button onClick={imageState}>Edit Image</button>
-              </>
-            ) : (
-              <>
-                <label>Profile Image</label>
-                <input className="input" type="file" onChange={handleUpload} />
-              </>
-            )}
-            <Card.Header as='h5' className='mt-3'>{userInfo.username}</Card.Header>
-            <Card.Body>
-              <Card.Text>Followers: {userInfo.followers.length} Following: {userInfo.following.length}</Card.Text>
-              {!editBio ? (
+    <>
+      <Container>
+        {userInfo ? (
+          <>
+            <Card className="text-center border-0">
+              {!editImage ? (
                 <>
-                  <Card.Text className='mt-3'>{bio}</Card.Text>
-                  <button onClick={BioEdit}>Edit Bio</button>
+                  <Image
+                    className="card-image"
+                    variant="top"
+                    src={image}
+                    roundedCircle
+                  />
+                  <button onClick={imageState}>Edit Image</button>
                 </>
               ) : (
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    placeholder={userInfo.profileBio}
-                    onChange={handleChange}
-                  />
-                  <input type="submit" value="confirm changes" />
-                </form>
-              )}
-              <ListGroup variant="flush">
-                <Card.Title className='mt-3'>Posts</Card.Title>
                 <>
-        {userPosts.map((posts) => (
-              <TripCard {...posts} />
-        ))}
-        </>
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </>
-      ) : (
-        <></>
-      )}
-    </Container>
+                  <label>Profile Image</label>
+                  <input
+                    className="input"
+                    type="file"
+                    onChange={handleUpload}
+                  />
+                </>
+              )}
+              <Card.Header as="h5" className="mt-3">
+                {userInfo.username}
+              </Card.Header>
+              <Card.Body>
+                <Card.Text>
+                  Followers: {userInfo.followers.length} Following:{" "}
+                  {userInfo.following.length}
+                </Card.Text>
+                {!editBio ? (
+                  <>
+                    <Card.Text className="mt-3">{bio}</Card.Text>
+                    <button onClick={BioEdit}>Edit Bio</button>
+                  </>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      placeholder={userInfo.profileBio}
+                      onChange={handleChange}
+                    />
+                    <input type="submit" value="confirm changes" />
+                  </form>
+                )}
+              </Card.Body>
+            </Card>
+          </>
+        ) : (
+          <></>
+        )}
+      </Container>
+    </>
   );
 };
 

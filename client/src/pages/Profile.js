@@ -1,10 +1,13 @@
-import { Col, Container, Row, Button, Stack } from "react-bootstrap";
+import { Col, Container, Row, Button, Stack, CardGroup, Card } from "react-bootstrap";
 import ProfileCard from "../components/ProfileCard";
 import { useNavigate } from "react-router";
 import { getToken } from "../helpers/auth.js";
-import { useEffect } from "react";
-// import { fetchProfileInfo } from "../helpers/api";
+import { useEffect, useState } from "react";
+import { fetchProfileInfo, fetchProfilePosts } from "../helpers/api";
 import Map from "../components/Map.js";
+import axios from "axios";
+import PostCard from "../components/PostCard";
+import { fetchProfileInfoTrips } from "../helpers/api";
 
 const Profile = ({
   map,
@@ -19,35 +22,71 @@ const Profile = ({
   flyZoom,
 }) => {
   const navigate = useNavigate();
-
-  const geoJSON = {
+  const [geoJSON, setGeoJSON] = useState({
     type: "geojson",
     data: {
       type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-0.1425615, 51.500978],
-          },
-          properties: {
-            title: "Buckingham Palace",
-          },
-        },
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-0.287271, 51.479644],
-          },
-          properties: {
-            title: "Kew Gardens",
-          },
-        },
-      ],
+      features: [],
     },
-  };
+  });
+  const [userInfo, setUserInfo] = useState(null)
+  const [profilePosts, setProfilePosts] = useState(null)
+  const [userPosts, setUserPosts] = useState([]);
+  const [state, setState] = useState(true);
+  
+  useEffect(() => {
+    fetchProfileInfo().then(setUserInfo)
+    fetchProfileInfoTrips().then(setUserPosts);
+  }, []);
+
+  useEffect(() => {
+    if(!userInfo) return
+    fetchProfilePosts(userInfo.id).then(setProfilePosts)
+
+  }, [userInfo])
+
+  useEffect(() => {
+    if(!profilePosts) return
+    console.log('profileposts', profilePosts)
+    let postFeatures = []
+    profilePosts.forEach((post) => {
+      console.log('for loop')
+        const marker = {
+          'type': "Feature",
+          'geometry': {
+            'type': "Point",
+            'coordinates': [],
+          },
+          'properties': {
+            'title': post.location,
+            'id': post._id
+          }
+        }
+        console.log('the marker', marker)
+        postFeatures.push(marker)
+      })
+    postFeatures.forEach((feature)=>{
+      async function makeCoords(){
+        axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${feature.properties.title}.json?access_token=pk.eyJ1Ijoic3VuZ2NodW4iLCJhIjoiY2t2djFnNjRuMDA0YTJvb2V3NWN3MG8xeCJ9.9wh2aRtP8nPesxW4bwjEIQ`
+        )
+        .then((response) => {
+          const { center } = response.data.features[0];
+          feature.geometry.coordinates = center
+        })
+      .catch((err) => {
+        console.log(err);
+      })
+      }
+      makeCoords()
+    })
+    const {data} = geoJSON
+    console.log('the features', postFeatures)
+    data.features = postFeatures
+    setGeoJSON({...geoJSON, data})
+  }, [profilePosts])
+
 
   useEffect(() => {
     const logCheck = () => {
@@ -60,12 +99,12 @@ const Profile = ({
   }, []);
 
   return (
-    <Container>
-      <br />
+    <>
+    <Container className='mt-3 mb-4'>
       <Row>
         <Col lg={4}>
           <ProfileCard />
-          <Stack gap={2} className='col-md-6 mx-auto mb-3'>
+          <Stack gap={2} className="col-md-6 mx-auto mb-3">
             <Button
               href="/addpost"
               type="button"
@@ -92,7 +131,25 @@ const Profile = ({
           />
         </Col>
       </Row>
-    </Container>
+      </Container>
+      <Container>
+        <CardGroup variant="flush">
+          <Card className='mt-5'>
+            <Card.Title className="mt-5">Posts</Card.Title>
+              {userPosts.map((posts) => (
+                <>
+                  <PostCard
+                    {...posts}
+                    state={state}
+                    postId={posts._id}
+                    key={posts._id}
+                  />
+                </>
+              ))}
+          </Card>
+        </CardGroup>
+      </Container>
+    </>
   );
 };
 

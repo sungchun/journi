@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-
-
 export const fetchProfile = async (id) => {
   const page = id
   const config = {
@@ -16,6 +14,7 @@ export const fetchProfile = async (id) => {
   const response = await axios(config)
   return response.data
 }
+
 export const fetchProfilePosts = async (id) => {
   const page = id
   const config = {
@@ -117,6 +116,27 @@ export const updateProfileInformationImage = async (image) => {
   return response.data
 }
 
+export const fetchUnfollow = async (id) => {
+  console.log('this is me unfollowing!')
+  const config = {
+    method: 'put',
+    url: `/api/profile/${id}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      'content-Type': 'application/json'
+    },
+    // "data": JSON.stringify({
+      
+    // }),
+  }
+  const response = await axios(config)
+  return response.data
+}
+
+export const fetchFollow = async (id) => {
+  return makeAxiosRequest(`/profile/${id}`)
+}
+
 export const login = async (data) => {
     return makeAxiosRequest('/login', data)
 }
@@ -129,13 +149,39 @@ export const postTrip = async (data) => {
   return makeAxiosRequest('/posts', data)
 }
 
-export const makeAxiosRequest = async (url, data, method = 'post') => {
-  const config = getAxiosRequestConfig(url, data, method)
+export const updatePost = async (id, data) => {
+  return makeAxiosRequest(`/posts/${id}`, data, 'put')
+}
+
+export const deletePost = async (id) => {
+  const response = await fetch(`/api/posts/${id}`, {
+    method: 'delete',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      'content-Type': 'application/json'
+    },
+  })
+}
+
+export const fetchPosts = async () => { 
+  const config = {
+    method: 'get',
+    url: 'api/posts',
+    headers: {}
+  }
+
+  const response = await axios(config)
+  return response.data
+}
+
+export const makeAxiosRequest = async (url, data) => {
+  const config = getAxiosRequestConfig(url, data)
+  
   const response = await axios(config)
   return response.data
 }
   
-export const getAxiosRequestConfig = (requestUrl, data, method) => {
+export const getAxiosRequestConfig = (requestUrl, data, method = 'post') => {
   const config = {
     method,
     url: `/api/${requestUrl}`,
@@ -144,6 +190,6 @@ export const getAxiosRequestConfig = (requestUrl, data, method) => {
       'Content-Type': 'application/json',
     },
     data,
-  }
+  } 
   return config
 }
