@@ -9,17 +9,14 @@ import {
   fetchUnfollow,
 } from "../helpers/api";
 import { useParams } from "react-router";
-import PostCard from "./PostCard";
+// import PostCard from "./PostCard";
 
-const OtherProfileCard = () => {
+const OtherProfileCard = ({ setFlyLocation, setFlyZoom, handleClick }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [follow, setFollow] = useState(false);
   const [profile, setProfile] = useState("");
   const [reload, setReload] = useState(null);
-
-  const [state, setState] = useState(false)
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -48,6 +45,7 @@ const OtherProfileCard = () => {
     } else {
       fetchFollow(id);
       console.log(userInfo.followers);
+      console.log(userPosts);
       setFollow(true);
       setReload(true);
     }
@@ -72,18 +70,17 @@ const OtherProfileCard = () => {
               <Card.Text>Followers: {userInfo.followers.length}</Card.Text>
               <Card.Text>Following: {userInfo.following.length}</Card.Text>
               {follow ? (
-                <button onClick={following}>Unfollow</button>
+                <button onClick={following} className="button">
+                  Unfollow
+                </button>
               ) : (
-                <button onClick={following}>Follow</button>
+                <button onClick={following} className="button">
+                  Follow
+                </button>
               )}
               <Card.Text>{userInfo.profileBio}</Card.Text>
               <ListGroup variant="flush">
                 <Card.Title>Posts: {userPosts.length}</Card.Title>
-                <>
-                  {userPosts.map((posts) => (
-                    <PostCard {...posts} state={state} key={posts._id}/>
-                  ))}
-                </>
               </ListGroup>
             </Card.Body>
           </Card>

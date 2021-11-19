@@ -1,0 +1,30 @@
+.login {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.height {
+  height: 100%;
+}
+
+.login-form {
+  margin: 40px;
+  border: 3px solid green;
+  height: 500px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(8, 216, 188);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+}
+.submit:hover {
+  background-color: rgb(6, 151, 67);
+}
+.reg {
+  padding: 20px;
+}
