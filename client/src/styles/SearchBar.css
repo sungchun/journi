@@ -51,6 +51,10 @@ input:focus {
   color: black;
 }
 
+.search-results {
+  width: 400px;
+}
+
 li:hover {
   background-color: rgb(203, 236, 216);
 }

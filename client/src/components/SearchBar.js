@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import {useNavigate} from 'react-router'
+import { useNavigate } from "react-router";
 import "../styles/SearchBar.css";
 
 export default function SearchBar({
@@ -12,7 +12,7 @@ export default function SearchBar({
   setFlyLocation,
   setFlyZoom,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -39,15 +39,15 @@ export default function SearchBar({
       .get("/api/profiles")
       .then((response) => {
         const filteredProfiles = response.data.filter((user) => {
-          return user.username.toLowerCase().includes(searchWord.toLowerCase())
-        })
-        if(searchWord === ''){
-          setFilteredUsers([])
-        }else{
-          setFilteredUsers(filteredProfiles)
+          return user.username.toLowerCase().includes(searchWord.toLowerCase());
+        });
+        if (searchWord === "") {
+          setFilteredUsers([]);
+        } else {
+          setFilteredUsers(filteredProfiles);
         }
-    })
-    .catch(err => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   async function handleClick(event) {
@@ -70,19 +70,24 @@ export default function SearchBar({
       });
   }
 
-  function handleUserClick(event){
-    const {innerHTML} = event.target
+  function handleUserClick(event) {
+    const { innerHTML } = event.target;
     axios
-      .get('/api/profiles')
+      .get("/api/profiles")
       .then((response) => {
         const correctUser = response.data.find((user) => {
-          return user.username === innerHTML
-        })
-        navigate('/')
-        navigate(`/profile/${correctUser._id}`)
-        window.location.reload()
+          return user.username === innerHTML;
+        });
+        navigate("/");
+        navigate(`/profile/${correctUser._id}`);
+        window.location.reload();
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("submitted");
   }
 
   const clearInput = () => {
@@ -94,12 +99,15 @@ export default function SearchBar({
     <Container>
       <div className="search">
         <div className="searchInput">
-          <input
-            type="text"
-            placeholder={placeholder}
-            value={wordEntered}
-            onChange={handleFilter}
-          />
+          <form>
+            <input
+              type="text"
+              placeholder={placeholder}
+              value={wordEntered}
+              onChange={handleFilter}
+              onSubmit={handleSubmit}
+            />
+          </form>
           <div className="searchIcon">
             {filteredData.length === 0 ? (
               <SearchIcon />
@@ -108,36 +116,40 @@ export default function SearchBar({
             )}
           </div>
         </div>
-        {filteredData.length !== 0 && (<div className="dataResult">{filteredData.map((post) => {
-              return (
-                <li
-                  className="dataItem"
-                  onClick={handleClick}
-                  value={post}
-                  key={post._id}
-                >
-                  {post.location}
-                </li>
-              );
-            })}
-          </div>
-        )}
-        {filteredUsers.length !== 0 && (<div className="dataResult">{filteredUsers.map((user) => {
-              return (
-                <li
-                  className="dataItem"
-                  onClick={handleUserClick}
-                  value={user}
-                  key={user._id}
-                >
-                  {user.username}
-                </li>
-              );
-            })}
-          </div>
-          
-        )
-        }
+        <div className="search-results">
+          {filteredData.length !== 0 && (
+            <div className="dataResult">
+              {filteredData.map((post) => {
+                return (
+                  <li
+                    className="dataItem"
+                    onClick={handleClick}
+                    value={post}
+                    key={post._id}
+                  >
+                    {post.location}
+                  </li>
+                );
+              })}
+            </div>
+          )}
+          {filteredUsers.length !== 0 && (
+            <div className="dataResult">
+              {filteredUsers.map((user) => {
+                return (
+                  <li
+                    className="dataItem"
+                    onClick={handleUserClick}
+                    value={user}
+                    key={user._id}
+                  >
+                    {user.username}
+                  </li>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </Container>
   );

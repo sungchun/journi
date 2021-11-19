@@ -2,33 +2,54 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { fetchProfile } from "../helpers/api";
 
-const Feed = ({owner, title, description, rating, images, location, handleClick}) => {
+const Feed = ({
+  owner,
+  title,
+  description,
+  rating,
+  images,
+  location,
+  comments,
+  _id,
+  handleClick,
+  setPostToDisplay,
+  handleUserClick,
+}) => {
+  const [user, setUser] = useState("");
 
-    const [user, setUser] = useState('')
+  useEffect(() => {
+    fetchProfile(owner).then(setUser);
+  }, []);
 
-    useEffect(() => {   
-        fetchProfile(owner).then(setUser)
-    }, [])
+  function displayPost() {
+    setPostToDisplay({
+      title: title,
+      owner: owner,
+      description: description,
+      rating: rating,
+      images: images,
+      location: location,
+      comments: comments,
+      id: _id,
+    });
+  }
 
-    return (
-        <section className='info'>
-        <div className='user-info'>
-           <img src={user.profileImage}/>
-           <h4>{user.username}</h4>
+  return (
+    <section className="info">
+      <div className="user-info">
+        <h3 onClick={handleUserClick}>{user.username}</h3>
+      </div>
+      <div className="posts">
+        <div className="posts-info">
+          <h3> {title} </h3>
+          <h3> {location} </h3>
         </div>
-        <div className='posts'>
-            <div className='posts-info'>
-            <h3> {title} </h3>
-            <h3 onClick={handleClick}> {location}</h3> 
-            <h5> Ratings: {rating} </h5>
-            <p>  {description} </p>
-            </div>
-            <div className='posts-image'>
-                <img src={images [0]} />
-            </div>
-        </div>
-        </section>
-    )
-}
+        <button className="button" onClick={displayPost}>
+          More
+        </button>
+      </div>
+    </section>
+  );
+};
 
-export default Feed
+export default Feed;

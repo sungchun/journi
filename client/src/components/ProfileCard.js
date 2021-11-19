@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Container,
-  Image,
-} from "react-bootstrap";
+import { Card, Container, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Profile.css";
@@ -87,7 +83,9 @@ const ProfileCard = () => {
                     src={image}
                     roundedCircle
                   />
-                  <button onClick={imageState}>Edit Image</button>
+                  <button onClick={imageState} className="button">
+                    Edit Image
+                  </button>
                 </>
               ) : (
                 <>

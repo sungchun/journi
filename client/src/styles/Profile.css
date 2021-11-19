@@ -1,6 +1,22 @@
 .card-image {
-    margin-left: 1.5em;
-    height: 12em;
-    width: 13em;
-    border: 3px solid black;
+  margin-left: 1.5em;
+  height: 12em;
+  width: 13em;
+  border: 3px solid black;
+}
+
+.container-one {
+  display: flex;
+  overflow: scroll;
+}
+
+.container-two {
+  display: flex;
+  max-height: 50%;
+}
+
+.image-one {
+  max-width: 50%;
+  margin: auto;
+  display: block;
 }
