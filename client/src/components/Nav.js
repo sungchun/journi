@@ -30,7 +30,7 @@ const NavBar = ({
   return (
     <Navbar collapseOnSelect expand="lg" bg="custom-nav" variant="dark">
       <Container className="justify-content-center">
-        <Navbar.Brand>
+        <Navbar.Brand className="mx-auto pl-4">
           <Nav.Link href="/">
             <img
               src="https://res.cloudinary.com/reisli82/image/upload/v1637321221/journi/logo-journi_bri501.png"
@@ -49,8 +49,8 @@ const NavBar = ({
             />
           </Form>
         </Navbar>
-        <Navbar>
-          <Nav className="me-auto">
+        <Navbar className="mx-auto pr-4">
+          <Nav className="justify-content-end">
             {isLoggedIn ? (
               <>
                 <Nav.Link className="text-muted" href="/profile">

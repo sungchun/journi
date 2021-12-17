@@ -55,7 +55,9 @@ a {
   height: 30px;
   margin-top: 5px;
   font-size: 15px;
-  display: inline;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .posts-info {
@@ -94,4 +96,83 @@ ul {
 
 .rounded-circle img {
   width: 50px;
+}
+
+.message-box {
+  background-color: aliceblue;
+  width: 400px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.display-card-border {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.display-title {
+  text-transform: capitalize;
+}
+
+.display-location {
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.display-location:hover {
+  color: rgb(10, 233, 203);
+  cursor: pointer;
+}
+
+.display-card-holder {
+  background-color: rgb(205, 247, 229);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 10px;
+}
+.display-card-border button {
+  position: relative;
+  left: 35%;
+  margin-top: 20px;
+}
+
+.description-displaying {
+  margin-top: 5px;
+  padding-top: 10px;
+}
+
+.add-comment {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.search-results {
+  cursor: pointer;
+}
+.a {
+  cursor: pointer;
+  margin-top: 10px;
+}
+.mb-3 {
+  text-transform: capitalize;
+}
+.profile-image {
+  display: flex;
+  justify-content: center;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+.primary-button {
+  width: 40%;
 }

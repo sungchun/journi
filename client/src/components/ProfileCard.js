@@ -77,15 +77,22 @@ const ProfileCard = () => {
             <Card className="text-center border-0">
               {!editImage ? (
                 <>
-                  <Image
-                    className="card-image"
-                    variant="top"
-                    src={image}
-                    roundedCircle
-                  />
-                  <button onClick={imageState} className="button">
-                    Edit Image
-                  </button>
+                  <div className="profile-image">
+                    <Image
+                      className="card-image"
+                      variant="top"
+                      src={image}
+                      roundedCircle
+                    />
+                  </div>
+                  <div className="button-container">
+                    <button
+                      onClick={imageState}
+                      className="button primary-button"
+                    >
+                      Edit Image
+                    </button>
+                  </div>
                 </>
               ) : (
                 <>
@@ -100,7 +107,7 @@ const ProfileCard = () => {
               <Card.Header as="h5" className="mt-3">
                 {userInfo.username}
               </Card.Header>
-              <Card.Body>
+              <Card.Body className="body">
                 <Card.Text>
                   Followers: {userInfo.followers.length} Following:{" "}
                   {userInfo.following.length}
@@ -108,7 +115,14 @@ const ProfileCard = () => {
                 {!editBio ? (
                   <>
                     <Card.Text className="mt-3">{bio}</Card.Text>
-                    <button onClick={BioEdit}>Edit Bio</button>
+                    <div className="button-container">
+                      <button
+                        className="button second-button"
+                        onClick={BioEdit}
+                      >
+                        Edit Bio
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <form onSubmit={handleSubmit}>

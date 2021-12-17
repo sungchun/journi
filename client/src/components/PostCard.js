@@ -45,7 +45,6 @@ const PostCard = ({
             {title}
           </Card.Header>
           <img src={images} width="100%" className="image-one"></img>
-          <Card.Text className="mt-3">Rating: {rating} stars</Card.Text>
           <a className="a">
             <Card.Text onClick={handleClick}>{location}</Card.Text>
           </a>
