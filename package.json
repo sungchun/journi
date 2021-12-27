@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "npx index.js",
-    "start": "node index.js",
     "seed": "node db/seeds.js",
+    "start": "cd backend && node index.js",
     "build": "cd client && yarn && yarn build"
   }
 }
