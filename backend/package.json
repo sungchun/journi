@@ -5,8 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "serve": "npx nodemon index.js",
-    "seed": "node db/seeds.js"
+    "dev": "npx index.js",
+    "start": "node index.js",
+    "seed": "node db/seeds.js",
+    "build": "cd client && yarn && yarn build"
   },
   "dependencies": {
     "@cloudinary/url-gen": "^1.2.0",
