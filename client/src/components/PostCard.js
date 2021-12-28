@@ -18,21 +18,22 @@ const PostCard = ({
   setPostToDisplay,
 }) => {
   const navigate = useNavigate();
-  const [state, setState] = useState(null);
+  const [loadState, setLoadState] = useState(null);
 
   const handleDelete = (event) => {
     event.preventDefault();
     deletePost(postId);
 
     navigate("/profile");
-    setState(true);
+    setLoadState(true);
   };
 
   useEffect(() => {
-    if (state) {
+    if (loadState) {
       window.location.reload();
     }
   }, [state]);
+
   function displayCard() {
     setPostToDisplay({
       title: title,
