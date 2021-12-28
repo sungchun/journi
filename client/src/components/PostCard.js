@@ -1,8 +1,9 @@
 import { Card, Container, Stack, Button } from "react-bootstrap";
 import { deletePost } from "../helpers/api";
 import { useNavigate } from "react-router";
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Profile.css";
+import { useState } from "react";
 
 const PostCard = ({
   title,
@@ -17,15 +18,21 @@ const PostCard = ({
   setPostToDisplay,
 }) => {
   const navigate = useNavigate();
+  const [state, setState] = useState(null);
 
   const handleDelete = (event) => {
     event.preventDefault();
-    console.log("test id", postId);
     deletePost(postId);
+
     navigate("/profile");
-    // window.location.reload();
+    setState(true);
   };
 
+  useEffect(() => {
+    if (state) {
+      window.location.reload();
+    }
+  }, [state]);
   function displayCard() {
     setPostToDisplay({
       title: title,
