@@ -23,7 +23,7 @@ const PostCard = ({
     console.log("test id", postId);
     deletePost(postId);
     navigate("/profile");
-    window.location.reload();
+    // window.location.reload();
   };
 
   function displayCard() {
