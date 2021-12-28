@@ -32,7 +32,7 @@ const PostCard = ({
     if (loadState) {
       window.location.reload();
     }
-  }, [state]);
+  }, [loadState]);
 
   function displayCard() {
     setPostToDisplay({
