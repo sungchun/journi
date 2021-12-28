@@ -1,6 +1,7 @@
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import { useRef, useState, useEffect } from "react";
 import "./Map.css";
+import mapboxgl from "mapbox-gl";
 
 export const Map = ({
   map,
@@ -15,6 +16,9 @@ export const Map = ({
   flyZoom,
   geoJSON,
 }) => {
+  mapboxgl.workerClass =
+    require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
   useEffect(() => {
     if (map.current) return;
     if (geoJSON.data.features.length < 1) return;
