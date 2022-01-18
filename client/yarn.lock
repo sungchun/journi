@@ -7559,10 +7559,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/mapbox-gl/-/mapbox-gl-2.6.0.tgz"
-  integrity sha512-ZPiU3o72XJk3FslHFXupIpDxBDYvh2j9R+TzSZ6fSYob9BEjqY79lrffzCElPUawF4JDFt+CzeIy4uFB6m23Ng==
+mapbox-gl@5.0.0:
+  version "2.7.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-2.7.0-alpha.2.tgz#5ca82e6925deda7f0e56e089c19ca322e01390f8"
+  integrity sha512-UVBpLrIWCAQ0BW/Mgu/p3uqPRVhPAmmY85I3+7HlzMLYJkM6RJigYw8DZHs5jDzvdDd1dQUs0GMSv4dyOatjkQ==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.1"
     "@mapbox/geojson-types" "^1.0.2"
