@@ -335,6 +335,14 @@ When the flyLocation and the zoom are changed, the useEffect above is triggered 
 
 Here are some images of the final product: 
 
+![journi login section](assets/journi-login.png)
+
+![journi register section](assets/journi-register.png)
+
+![journi homepage](assets/journi-homepage.png)
+
+![journi profile page](assets/journi-profilepage.png)
+
 ## Wins
 
 The accomplishment that I am most proud of was successfully implementing the Mapbox map and its features. Without any previous knowledge I studied the Mapbox documentation to learn how to create the map, add markers with specified locations, and make the map interactive including a ‘fly’ feature.
