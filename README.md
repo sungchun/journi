@@ -6,6 +6,8 @@ This was the third project I did during my Software Engineering Immersive course
 
 ## Deployment:
 
+This project is deployed on Heroku and is accessible [here](https://journi-media.herokuapp.com/login).
+
 ## How to download:
 
 The projects’ files can be accessed here.
