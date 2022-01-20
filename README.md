@@ -56,7 +56,9 @@ On Journi, users are able to:
 ### Planning
 After we decided on the subject for the project, we created wireframes for each web page.
 
-![home page wireframe](assets/home-page-wireframe.png)
+![home page wireframe](assets/homepage-wireframe.png)
+
+![profile page wireframe](assets/profile-page-wire-frame.png)
 
 The homepage was designed to have the following features:
 - A map that displayed the locations of the posts.
@@ -332,14 +334,6 @@ The coordinates returned are used to ‘setFlyLocation’ and the zoom (so that 
 When the flyLocation and the zoom are changed, the useEffect above is triggered which flies the map to the desired location.
 
 Here are some images of the final product: 
-
-![journi login section](assets/journi-login.png)
-
-![journi register section](assets/journi-register.png)
-
-![journi homepage](assets/journi-homepage.png)
-
-![journi profile page](assets/journi-profilepage.png)
 
 ## Wins
 
