@@ -333,7 +333,13 @@ When the flyLocation and the zoom are changed, the useEffect above is triggered 
 
 Here are some images of the final product: 
 
+![journi login section](assets/journi-login.png)
 
+![journi register section](assets/journi-register.png)
+
+![journi homepage](assets/journi-homepage.png)
+
+![journi profile page](assets/journi-profilepage.png)
 
 ## Wins
 
