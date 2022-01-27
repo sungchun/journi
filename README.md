@@ -20,7 +20,7 @@ If you want to download the ZIP file:
 Click the button labeled ‘Code’
 Click the ‘Download ZIP’ button on the dropdown menu.
 
-##Goal and Timeframe:
+## Goal and Timeframe:
 
 The objective of this project was to create a web-app with full CRUD functionality using a MongoDB backend and a React frontend. The timeframe was 10 days.
 
